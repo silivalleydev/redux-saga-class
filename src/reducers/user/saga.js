@@ -3,14 +3,11 @@ import axios from "axios";
 import { SEARCH_USERS_FAIL, SEARCH_USERS_REQ, SEARCH_USERS_SUCCESS } from './action';
 
 function getUsers(params = "") {
-    console.log("params??", params)
     return axios.get('http://localhost:8080/users' + params);
 }
   
 function* searchRequest(action) {
-    console.log("action??", action)
     const userData = yield call(getUsers, action.params);
-    console.log("data", userData)
     try {
         yield put({ type: SEARCH_USERS_SUCCESS, data: userData.data });
     } catch (err) {
