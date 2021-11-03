@@ -7,6 +7,7 @@ function getUsers(params = "") {
 }
   
 function* searchRequest(action) {
+    // yield는 다음 동작을 제어하는 ES6 문법이다.
     // Call()은 함수를 동기적으로 실행한다 
     // Call에 넘겨진 함수가 Promise를 리턴하면 그 Promise가 resolved 될 때까지 call()을 호출한 부분에서 실행이 멈춘다
     const userData = yield call(getUsers, action.params);
