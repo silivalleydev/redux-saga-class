@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { searchUsersReq } from '../reducers/user/action';
@@ -10,36 +10,47 @@ const Search = (props) => {
         searchUsers
     } = props;
 
+    // 우린 이름으로 검색을할 예정입니다.
     const [name, setName] = React.useState("");
+
+    console.log(props);
 
     return (
         <div>
             <div>
                 <Link to="/">메인 페이지로</Link>
             </div>
-            검색
+            검색페이지
             <div>
                 <input value={name} onChange={(e) => setName(e.target.value)} />
-                <button onClick={() => searchUsers("?name=" + name)}>검색</button>
+                <button onClick={() => searchUsers(`?name=${name}`)}>검색</button>
                 <div>
                     <table>
                         <thead>
-                            <th>
-                                이름
-                            </th>
-                            <th>
-                                전화번호
-                            </th>
-                            <th>
-                                이메일
-                            </th>
+                            <tr>
+                                <th>
+                                    이름
+                                </th>
+                                <th>
+                                    전화번호
+                                </th>
+                                <th>
+                                    이메일
+                                </th>
+                            </tr>
                         </thead>
                         <tbody>
-                            {userList.map((user = {}, idx) => 
-                                <tr key={`user-${user.userSeq}`}>
-                                    <td>{user.name}</td>
-                                    <td>{user.phone}</td>
-                                    <td>{user.email}</td>
+                            {userList?.map(user =>    
+                                <tr>
+                                    <td>
+                                        {user.name}
+                                    </td>
+                                    <td>
+                                        {user.phone}
+                                    </td>
+                                    <td>
+                                        {user.email}
+                                    </td>
                                 </tr>
                             )}
                         </tbody>
@@ -50,15 +61,15 @@ const Search = (props) => {
     )
 }
 
-const mapStateToProps = (state) => {
+const mapDispatchToProps = (dispatch) => {
     return {
-        userList: state.userReducer.userList
+        searchUsers: (params) => dispatch(searchUsersReq(params))
     }
 }
 
-const mapDispatchToProps = (dispatch) => {
+const mapStateToProps = (state) => {
     return {
-        searchUsers: (params = "") => dispatch(searchUsersReq(params))
+        userList: state.userReducer.userList
     }
 }
 

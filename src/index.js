@@ -9,10 +9,14 @@ import { reducers, rootSaga } from './reducers';
 import { Provider } from 'react-redux';
 import createSagaMiddleware from '@redux-saga/core';
 
+// 먼저 사가 미들웨어를 생성합니다.
 const sagaMiddleware = createSagaMiddleware();
+
+// 그다음 스토어에 미들웨어를 연결해줍니다
+// 연결할때는 applyMiddleWare을 사용합니다.
 const store = createStore(reducers, applyMiddleware(sagaMiddleware));
 
-// 사가 미들웨어에서 통합 사가 함수를 실행시킨다.
+// 그다음 사가 미들웨어에서 통합 사가 함수를 실행시킵니다.
 sagaMiddleware.run(rootSaga);
 
 ReactDOM.render(
